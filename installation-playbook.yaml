@@ -61,6 +61,17 @@
     - name: disable swap
       shell: swapoff -a
 
+# update /etc/containerd/config.toml
+     [plugins."io.containerd.grpc.v1.cri".containerd.runtimes]
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          runtime_type = "io.containerd.runc.v2"
+          runtime_engine = ""
+          runtime_root = ""
+          privileged_without_host_devices = false
+          base_runtime_spec = ""
+          [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
+            SystemdCgroup = true
+ systemctl restart containerd
 # comment that out
 nano /etc/fstab # comment swap
 # kubeadm init
